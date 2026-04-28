@@ -9,38 +9,34 @@
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- menu do site -->
 <header>
   <div class="logo">
-    <div class="logo-dot"></div>
-    <span class="logo-text">DoNow</span>
-  </div>
-  <div class="header-stats">
-    <div class="stat"><span class="stat-num" id="stat-total">0</span><span>total</span></div>
-    <div class="stat"><span class="stat-num" id="stat-done">0</span><span>concluídas</span></div>
+    <div class="bolinha"></div>
+    <span class="texto-logo">DoNow</span>
   </div>
 </header>
 
-<!-- ADD BAR -->
-<div class="add-bar">
-  <div class="add-form">
-    <input class="input-title" id="new-title" type="text" placeholder="Nome da tarefa…" autocomplete="off" />
-    <textarea class="input-desc" id="new-desc" placeholder="Descrição (opcional)…"></textarea>
-    <button class="btn-add" onclick="addTask()">+ Adicionar</button>
+<!-- area pra add tarefa -->
+<div class="area-nova">
+  <div class="form-add">
+    <input class="input-nome" id="titulo-novo" type="text" placeholder="Nome da tarefa…" autocomplete="off" />
+    <textarea class="input-desc" id="desc-nova" placeholder="Descrição (opcional)…"></textarea>
+    <button class="btn-add" onclick="adicionaTarefa()">+ Adicionar</button>
   </div>
 </div>
 
 <!-- BOARD -->
 <main class="board">
-  <!-- PENDENTE -->
-  <div class="column col-pending" id="col-pending">
-    <div class="column-header">
-      <div class="col-title-group">
-        <div class="col-indicator"></div>
-        <span class="col-name">Pendente</span>
+  <!-- pendentes -->
+  <div class="coluna col-pendente" id="col-pendente">
+    <div class="header-coluna">
+      <div class="info-coluna">
+        <div class="bolinhaIndicador"></div>
+        <span class="nome-coluna">Pendente</span>
       </div>
     </div>
-    <div class="column-body" id="body-pending">
+    <div class="corpo-coluna" id="corpo-pendente">
       <div class="empty-state">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
         <span>sem tarefas</span>
@@ -48,15 +44,15 @@
     </div>
   </div>
 
-  <!-- EM ANDAMENTO -->
-  <div class="column col-progress" id="col-progress">
-    <div class="column-header">
-      <div class="col-title-group">
-        <div class="col-indicator"></div>
-        <span class="col-name">Em Andamento</span>
+  <!-- em andamento -->
+  <div class="coluna col-andamento" id="col-andamento">
+    <div class="header-coluna">
+      <div class="info-coluna">
+        <div class="bolinhaIndicador"></div>
+        <span class="nome-coluna">Em Andamento</span>
       </div>
     </div>
-    <div class="column-body" id="body-progress">
+    <div class="corpo-coluna" id="corpo-andamento">
       <div class="empty-state">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         <span>sem tarefas</span>
@@ -64,15 +60,15 @@
     </div>
   </div>
 
-  <!-- CONCLUÍDA -->
-  <div class="column col-done" id="col-done">
-    <div class="column-header">
-      <div class="col-title-group">
-        <div class="col-indicator"></div>
-        <span class="col-name">Concluída</span>
+  <!-- concluida -->
+  <div class="coluna col-feito" id="col-feito">
+    <div class="header-coluna">
+      <div class="info-coluna">
+        <div class="bolinhaIndicador"></div>
+        <span class="nome-coluna">Concluída</span>
       </div>
     </div>
-    <div class="column-body" id="body-done">
+    <div class="corpo-coluna" id="corpo-feito">
       <div class="empty-state">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg>
         <span>sem tarefas</span>
@@ -81,24 +77,35 @@
   </div>
 </main>
 
-<!-- EDIT MODAL -->
-<div class="modal-overlay hidden" id="modal-overlay">
-  <div class="modal">
+<!-- janela pra editar -->
+<div class="janela-fundo hidden" id="janela-fundo">
+  <div class="modal-box">
     <h2>Editar Tarefa</h2>
     <label>Título</label>
-    <input type="text" id="edit-title" autocomplete="off" />
+    <input type="text" id="titulo-edit" autocomplete="off" />
     <label>Descrição</label>
-    <textarea id="edit-desc" placeholder="Descrição (opcional)…"></textarea>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
-      <button class="btn-save" onclick="saveEdit()">Salvar</button>
+    <textarea id="desc-edit" placeholder="Descrição (opcional)…"></textarea>
+    <div class="botoes-janela">
+      <button class="btn-cancelar" onclick="fechaJanela()">Cancelar</button>
+      <button class="btn-salvar" onclick="salvaEdit()">Salvar</button>
     </div>
   </div>
 </div>
 
-<!-- TOAST CONTAINER -->
-<div class="toast-container" id="toast-container"></div>
+<!-- template do cartao de tarefa -->
+<template id="template-card">
+  <div class="card-tarefa">
+    <div class="titulo-tarefa"></div>
+    <div class="desc-tarefa" style="display:none;"></div>
+    <div class="acoes-tarefa">
+      <button class="botao-icon btn-prev" style="display:none;">← voltar</button>
+      <button class="botao-icon btn-next" style="display:none;">avançar →</button>
+      <button class="botao-icon btn-edit">✎ editar</button>
+      <button class="botao-icon btn-del">✕ excluir</button>
+    </div>
+  </div>
+</template>
 
-<script src="script.js"></script></script>
+<script src="script.js"></script>
 </body>
 </html>
